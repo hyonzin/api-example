@@ -10,12 +10,12 @@ app.use(express.static(__dirname + '/static'));
 
 var coffee = [];
 
-app.get('/api/v1.0/coffee', function (req, res) {
+app.get('/api/v1.0/coffees', function (req, res) {
 	// get all coffees
 	res.json({coffee: coffee, error: 0});
 });
 
-app.post('/api/v1.0/coffee/:name', function (req, res) {
+app.post('/api/v1.0/coffees/:name', function (req, res) {
 	var name = req.params.name;
 
 	// check value
@@ -40,7 +40,7 @@ app.post('/api/v1.0/coffee/:name', function (req, res) {
 	res.json({error: 0});
 });
 
-app.delete('/api/v1.0/coffee/:name', function (req, res) {
+app.delete('/api/v1.0/coffees/:name', function (req, res) {
 	var name = req.params.name;
 
 	// check value
