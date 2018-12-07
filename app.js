@@ -12,7 +12,7 @@ var coffee = [];
 
 app.get('/api/v1.0/coffees', function (req, res) {
 	// get all coffees
-	res.json({coffee: coffee, error: 0});
+	res.json({coffee: coffee, error: 200});
 });
 
 app.post('/api/v1.0/coffees/:name', function (req, res) {
@@ -20,7 +20,7 @@ app.post('/api/v1.0/coffees/:name', function (req, res) {
 
 	// check value
 	if (name == null || name == "") {
-		res.json({error: -1});
+		res.json({error: 400});
 		return;
 	}
 
@@ -29,7 +29,7 @@ app.post('/api/v1.0/coffees/:name', function (req, res) {
 
 	// return if it already exists
 	if (idx != -1) {
-		res.json({error: -2});
+		res.json({error: 400});
 		return;
 	}
 
@@ -37,7 +37,7 @@ app.post('/api/v1.0/coffees/:name', function (req, res) {
 	coffee.push(name);
 
 	// return code
-	res.json({error: 0});
+	res.json({error: 200});
 });
 
 app.delete('/api/v1.0/coffees/:name', function (req, res) {
@@ -45,7 +45,7 @@ app.delete('/api/v1.0/coffees/:name', function (req, res) {
 
 	// check value
 	if (name == null || name == "") {
-		res.json({error: -1});
+		res.json({error: 400});
 		return;
 	}
 
@@ -54,7 +54,7 @@ app.delete('/api/v1.0/coffees/:name', function (req, res) {
 
 	// return if it doesn't exist
 	if (idx == -1) {
-		res.json({error: -2});
+		res.json({error: 404});
 		return;
 	}
 
@@ -62,7 +62,7 @@ app.delete('/api/v1.0/coffees/:name', function (req, res) {
 	coffee.splice(idx, 1);
 
 	// return code
-	res.json({error: 0});
+	res.json({error: 200});
 });
 
 app.listen(port_num, function () {
