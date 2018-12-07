@@ -1,0 +1,80 @@
+<!doctype html>
+<html style="background: #6f4e37; color: #ffffff;">
+  <head>
+    <title>Coffee?</title>
+    <style>
+    .wrapper {
+      padding: 30px;
+    }
+    .btn {
+      font-size: 13pt;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: solid 1px #000;
+      background: white;
+      cursor: pointer;
+    }
+		.list {
+			margin: 8px;
+			padding: 8px;
+			border: solid 1px #fff;
+			font-size: 15pt;
+			font-family: "Consolas";
+		}
+		#input {
+			font-size: 13pt;
+		}
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Coffee?</h1>
+      <button class="btn" onclick="getList()">Coffee List</button>
+			<div id="list" class="list"></div>
+			<input type="text" id="input" />
+      <button class="btn" onclick="addCoffee()">Add</button>
+      <button class="btn" onclick="deleteCoffee()">Delete</button>
+			<br /><br />
+			<div id="error"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+      function getList() {
+        $.ajax({
+          url: 'http://hhzz.iptime.org:3000/api/v1.0/coffee',
+					type: 'GET',
+          dataType: 'json',
+          success: function(data){
+              $("#list").html(data.coffee.join('<br />'));
+              $("#error").html("Get: "+data.error);
+          }
+        });
+      }
+
+      function addCoffee() {
+        $.ajax({
+          url: 'http://hhzz.iptime.org:3000/api/v1.0/coffee/'+$('#input').val(),
+					type: 'POST',
+          dataType: 'json',
+          success: function(data){
+              $("#error").html("Post: "+data.error);
+          }
+        });
+      }
+
+			function deleteCoffee() {
+        $.ajax({
+          url: 'http://hhzz.iptime.org:3000/api/v1.0/coffee/'+$('#input').val(),
+					type: 'DELETE',
+          dataType: 'json',
+          success: function(data){
+              $("#error").html("Delete: "+data.error);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
+
